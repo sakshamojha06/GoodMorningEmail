@@ -46,10 +46,10 @@ def get_contacts():
             "isActive": bool(row[4])
         })
 
-        cursor.close()
-        connection.close()
+    cursor.close()
+    connection.close()
 
-        return jsonify(contacts)
+    return jsonify(contacts)
 
 @app.route("/contacts", methods=["POST"])
 def add_contact():
