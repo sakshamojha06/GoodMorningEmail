@@ -1,0 +1,74 @@
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 30px;
+}
+
+.form-container,
+.table-container {
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+button {
+    padding: 9px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.edit-button {
+    background: #ddd;
+}
+
+.delete-button {
+    background: #ddd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    font-weight: bold;
+}
