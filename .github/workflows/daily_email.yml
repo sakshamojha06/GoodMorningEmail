@@ -29,6 +29,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
+      - name: Create Google credentials file
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+
+        run: |
+          echo "$GOOGLE_SERVICE_ACCOUNT_JSON" > service-account.json
+
      - name: Run daily email
        env:
         EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
@@ -37,6 +44,8 @@ jobs:
         GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
         GOOGLE_SECRET_ID: ${{ secrets.GOOGLE_SECRET_ID }}
         GOOGLE_SECRET_VERSION: ${{ secrets.GOOGLE_SECRET_VERSION }}
+        
+        GOOGLE_SERVICE_ACCOUNT_FILE: service-account.json
 
        run: |
         python app.py
