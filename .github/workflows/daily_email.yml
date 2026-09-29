@@ -29,9 +29,17 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Run daily email
-        run: |
-          python app.py
+     - name: Run daily email
+       env:
+        EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+
+        GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+        GOOGLE_SECRET_ID: ${{ secrets.GOOGLE_SECRET_ID }}
+        GOOGLE_SECRET_VERSION: ${{ secrets.GOOGLE_SECRET_VERSION }}
+
+       run: |
+        python app.py
 
       - name: Save database changes
         run: |
