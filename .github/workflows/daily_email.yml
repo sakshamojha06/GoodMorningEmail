@@ -1,38 +1,17 @@
-name: Good Morning Email
-
-on:
-  schedule:
-    - cron: "30 0 * * *"
-
-  workflow_dispatch:
-
-jobs:
-  send-email:
-
-    runs-on: ubuntu-latest
-
-    steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.14"
-
-      - name: Install dependencies
+# 🔑 Credentials folder & JSON file create karo
+      - name: Create Credentials Directory and JSON File
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install -r requirements.txt
+          mkdir -p credentials
+          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > credentials/service-account.json
 
-      - name: Verify OpenAI
-  run: |
-    python --version
-    python -m pip --version
-    python -m pip show openai
-    python -c "import openai; print(openai.__version__)"
-
-      - name: Run daily email
+      # 🚀 Main script run karo
+      - name: Run Main Application
+        env:
+          GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+          GOOGLE_SECRET_ID: ${{ secrets.GOOGLE_SECRET_ID }}
+          GOOGLE_SECRET_VERSION: ${{ secrets.GOOGLE_SECRET_VERSION }}
+          GOOGLE_SERVICE_ACCOUNT_FILE: credentials/service-account.json
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
         run: |
           python app.py
