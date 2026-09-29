@@ -1,10 +1,34 @@
-      - name: Create Credentials Directory and JSON File
+name: Run Email Automation
+
+on:
+  schedule:
+    - cron: '0 1 * * *' 
+  workflow_dispatch:     
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create Credentials JSON
         run: |
           mkdir -p credentials
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > credentials/service-account.json
 
-      # 🚀 Main script run karo
-      - name: Run Main Application
+      - name: Execute Application
         env:
           GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
           GOOGLE_SECRET_ID: ${{ secrets.GOOGLE_SECRET_ID }}
