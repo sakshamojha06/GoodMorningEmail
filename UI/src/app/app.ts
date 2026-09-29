@@ -3,6 +3,8 @@ import { FormsModule } from '@angular/forms';
 
 import { Contact } from './models/contact';
 import { ContactService } from './services/contact';
+import { Topic } from './models/topic';
+import { TopicService } from './services/topic';
 
 @Component({
   selector: 'app-root',
@@ -12,26 +14,44 @@ import { ContactService } from './services/contact';
 })
 export class App implements OnInit{
     contacts = signal<Contact[]>([]);
+    topics: Topic[] = [];
 
     form = {
       name: '',
       email: '',
       startDate: '',
-      isActive: true
+      isActive: true,
+      topicId: 0
     };
 
     editingId: number | null = null;
 
-    constructor(private contactService: ContactService) {}
+    constructor(private contactService: ContactService, private topicService: TopicService) {}
 
     ngOnInit(): void {
       this.loadContacts();
+      this.loadTopics();
     }
 
     loadContacts(): void {
       this.contactService.getContacts().subscribe({
         next: data => this.contacts.set(data),
         error: err => console.error('Failed to load contacts', err)
+      });
+    }
+
+    loadTopics(): void {
+      this.topicService.getTopics().subscribe({
+        next: (data) => {
+          this.topics = data;
+
+          if (this.topics.length > 0 && this.form.topicId === 0) {
+            this.form.topicId = this.topics[0].id;
+          }
+        },
+        error: (error) => {
+          console.error('Failed to load topics', error);
+        }
       });
     }
 
@@ -71,7 +91,8 @@ export class App implements OnInit{
         name: contact.name,
         email: contact.email,
         startDate: contact.startDate,
-        isActive: contact.isActive
+        isActive: contact.isActive,
+        topicId: contact.topicId
       };
     }
 
@@ -92,6 +113,12 @@ export class App implements OnInit{
       });
     }
 
+    getTopicName(topicId: number): string {
+      const topic = this.topics.find(t => t.id === topicId);
+
+      return topic ? topic.name : 'Unknown';
+    }
+
     resetForm(): void {
       this.editingId = null;
 
@@ -99,7 +126,8 @@ export class App implements OnInit{
         name: '',
         email: '',
         startDate: '',
-        isActive: true
+        isActive: true,
+        topicId: this.topics.length > 0 ? this.topics[0].id : 0
       };
     }
 }

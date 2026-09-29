@@ -4,4 +4,5 @@ export interface Contact {
     email: string;
     startDate: string;
     isActive: boolean;
+    topicId: number;
 }

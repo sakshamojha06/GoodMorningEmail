@@ -27,12 +27,37 @@ h1 {
     font-weight: bold;
 }
 
-input[type="text"],
-input[type="email"],
-input[type="date"] {
-    width: 100%;
+input[type="text"] {
+    width: 50%;
     padding: 10px;
     box-sizing: border-box;
+}
+
+input[type="email"] {
+    width: 40%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+input[type="date"] {
+    width: 13%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+select {
+    width: 30%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}
+
+section:focus {
+    outline: none;
+    border-color: #666;
 }
 
 .checkbox label {

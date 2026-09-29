@@ -23,6 +23,18 @@
           <input type="date" name="startDate" [(ngModel)]="form.startDate" required>
         </div>
 
+        <div class="form-group">
+          <label for="topic">Topic</label>
+
+          <select name="topicId" id="topic" [(ngModel)]="form.topicId">
+            <option [ngValue]="0" disabled>Select a topic</option>
+
+            @for (topic of topics; track topic.id) {
+              <option [ngValue]="topic.id">{{ topic.name }}</option>
+            }
+          </select>
+        </div>
+
         <div class="form-group checkbox">
           <label>
             <input type="checkbox" name="isActive" [(ngModel)]="form.isActive">
@@ -46,6 +58,7 @@
         <tr>
           <th>Name</th>
           <th>Email</th>
+          <th>Topic</th>
           <th>Start Date</th>
           <th>Status</th>
           <th>Actions</th>
@@ -57,6 +70,7 @@
           <tr>
             <td>{{ contact.name }}</td>
             <td>{{ contact.email }}</td>
+            <td>{{ getTopicName(contact.topicId )}}</td>
             <td>{{ contact.startDate }}</td>
             <td>{{ contact.isActive ? 'Active' : 'Inactive' }}</td>
             <td>
