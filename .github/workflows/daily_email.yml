@@ -50,6 +50,12 @@ jobs:
         run: |
           python app.py
 
+      - name: Check database changes
+        run: |
+          git status
+          git diff --stat
+          ls -lh Database/goodmorning.db
+
       - name: Save database changes
         run: |
           git config user.name "github-actions[bot]"
