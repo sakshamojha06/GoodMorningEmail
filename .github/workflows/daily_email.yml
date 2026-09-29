@@ -26,10 +26,12 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Check OpenAI installation
-        run: |
-          python -m pip show openai
-          python -c "from openai import OpenAI; print('OpenAI imported successfully')"
+      - name: Verify OpenAI
+  run: |
+    python --version
+    python -m pip --version
+    python -m pip show openai
+    python -c "import openai; print(openai.__version__)"
 
       - name: Run daily email
         run: |
