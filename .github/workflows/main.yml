@@ -28,6 +28,12 @@ jobs:
           mkdir -p credentials
           echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > credentials/service-account.json
 
+      - name: Create Credentials and Data Directory
+        run: |
+          mkdir -p credentials
+          mkdir -p data  # 👈 Apne database folder ka naam yahan likho (e.g. data, database, DB)
+          echo '${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}' > credentials/service-account.json
+
       - name: Execute Application
         env:
           GOOGLE_CLOUD_PROJECT_ID: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
