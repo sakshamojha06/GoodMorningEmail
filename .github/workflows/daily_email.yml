@@ -59,8 +59,9 @@ jobs:
 
           git add Database/goodmorning.db
 
-          git diff --cached --quiet || git commit -m "Update email database"
-
-          git pull --rebase origin main
-
-          git push
+          if git diff --cached --quiet; then
+            echo "No database changes to commit"
+          else
+            git commit -m "Update email database"
+            git push
+          fi
