@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 
 
-DATABASE_PATH = BASE_DIR / "database" / "goodmorning.db"
+DATABASE_PATH = BASE_DIR / "Database" / "goodmorning.db"
 
 
 def get_connection():
